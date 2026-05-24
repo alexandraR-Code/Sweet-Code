@@ -11,7 +11,7 @@
             <div class="logo">
                 <img src="sweetCode2.png">
             </div>
-                <h1>Matemática 1 — UNIDAD 2: Costos y presupuestos</h1>
+            <h1>Matemática 1 — UNIDAD 2: Costos y presupuestos</h1>
         </header>
         <nav>
             <button onclick="mostrarSeccion('fijos')">Gastos fijos</button>
@@ -35,15 +35,117 @@
             <section id="directos" class="pantalla">
                 <h2>Costos Directos e Indirectos</h2>
             </section>
+
             <section id="materia" class="pantalla">
                 <h2>Registro de Materia Prima y Mermas</h2>
+                
+                <div id="bloque_explicacion_materia" style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; border-left: 4px solid var(--rosa-marca);">
+                    </div>
+
+                <div class="formulario-container" style="background: var(--bg-tarjetas); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
+                    <h3 id="formulario_titulo" style="color: var(--celeste-tech); margin-bottom: 1rem;">Agregar Nuevo Insumo</h3>
+                    <input type="hidden" id="mat_index_editar" value="-1">
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <label>Nombre del Producto:</label>
+                            <input type="text" id="mat_nombre" placeholder="Ej: Café molido" style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--bg-principal); color: white;">
+                        </div>
+                        <div>
+                            <label>Unidad de Compra:</label>
+                            <input type="text" id="mat_unidad" placeholder="Ej: kg, litro" style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--bg-principal); color: white;">
+                        </div>
+                        <div>
+                            <label>Cantidad Comprada:</label>
+                            <input type="number" id="mat_cantidad" placeholder="Ej: 1.00" step="0.01" style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--bg-principal); color: white;">
+                        </div>
+                        <div>
+                            <label>Precio de Compra ($):</label>
+                            <input type="number" id="mat_precio" placeholder="Ej: 10.00" step="0.01" style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--bg-principal); color: white;">
+                        </div>
+                        <div>
+                            <label>% Merma Inicial:</label>
+                            <input type="number" id="mat_merma" placeholder="Ej: 5.00" step="0.01" style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--bg-principal); color: white;">
+                        </div>
+                        <div>
+                            <label>Tipo de Materia Prima:</label>
+                            <select id="mat_tipo" style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--bg-principal); color: white;">
+                                <option value="DIRECTA">MATERIA PRIMA DIRECTA</option>
+                                <option value="INDIRECTA">MATERIA PRIMA INDIRECTA</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button id="btn_guardar_materia" onclick="procesarFormularioMateria()" style="background: var(--rosa-marca); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: bold; width: auto;">Guardar Insumo</button>
+                    <button id="btn_cancelar_edicion" onclick="cancelarEdicionMateria()" style="background: var(--texto-gris); color: var(--bg-principal); border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: bold; width: auto; display: none; margin-left: 0.5rem;">Cancelar</button>
+                </div>
+
+                <div style="overflow-x: auto; width: 100%;">
+                    <table style="width: 100%; border-collapse: collapse; background: var(--bg-tarjetas); border-radius: 8px; overflow: hidden; text-align: left;">
+                        <thead style="background: rgba(232, 66, 124, 0.15); color: var(--celeste-tech);">
+                            <tr>
+                                <th style="padding: 1rem; border-bottom: 2px solid rgba(255,255,255,0.1); width: 50px;">#</th>
+                                <th style="padding: 1rem; border-bottom: 2px solid rgba(255,255,255,0.1);">Materia Prima</th>
+                                <th style="padding: 1rem; border-bottom: 2px solid rgba(255,255,255,0.1); width: 100px;">Unidad</th>
+                                <th style="padding: 1rem; border-bottom: 2px solid rgba(255,255,255,0.1); width: 110px;">Cant. Compra</th>
+                                <th style="padding: 1rem; border-bottom: 2px solid rgba(255,255,255,0.1); width: 110px;">Precio Compra</th>
+                                <th style="padding: 1rem; border-bottom: 2px solid rgba(255,255,255,0.1); width: 100px;">% Merma</th>
+                                <th style="padding: 1rem; border-bottom: 2px solid rgba(255,255,255,0.1); width: 160px;">Costo Neto Ud. ($)</th>
+                                <th style="padding: 1rem; border-bottom: 2px solid rgba(255,255,255,0.1); width: 150px;">Clasificación</th>
+                                <th style="padding: 1rem; border-bottom: 2px solid rgba(255,255,255,0.1); width: 100px; text-align: center;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla_materia_prima"></tbody>
+                    </table>
+                </div>
             </section>
+
             <section id="personal" class="pantalla">
                 <h2>Costos de Personal y Beneficios IESS</h2>
             </section>
+
             <section id="recetas" class="pantalla">
-                <h2>Recetas y Costeo por Taza de Café</h2>
+                <h2>Cafetería — Registro de Recetas y Costeo</h2>
+                
+                <div id="bloque_explicacion_recetas" style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; border-left: 4px solid var(--celeste-tech);">
+                    </div>
+
+                <div id="formulario_edicion_receta" class="formulario-container" style="background: var(--bg-tarjetas); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; display: none; border: 1px solid var(--celeste-tech);">
+                    <h3 id="receta_formulario_titulo" style="color: var(--celeste-tech); margin-bottom: 1rem;">Editar Parámetros de Receta</h3>
+                    
+                    <input type="hidden" id="receta_id_editar" value="-1">
+                    <input type="hidden" id="ingrediente_id_editar" value="-1">
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <label style="color: var(--texto-gris); font-size: 0.9rem;">Ingrediente Seleccionado (Fijo):</label>
+                            <input type="text" id="receta_ingrediente_nombre" readonly style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2); color: var(--texto-gris); font-weight: bold;">
+                        </div>
+                        <div>
+                            <label>Cantidad Utilizada por Taza:</label>
+                            <input type="number" id="receta_ingrediente_cantidad" placeholder="Ej: 7.00" step="0.01" style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--bg-principal); color: white;">
+                        </div>
+                        <div>
+                            <label>Unidad de Medida por Taza:</label>
+                            <input type="text" id="receta_ingrediente_unidad" placeholder="Ej: gramos, ml, unidad" style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--bg-principal); color: white;">
+                        </div>
+                        <div>
+                            <label>Tiempo de Preparación (min):</label>
+                            <input type="number" id="receta_tiempo" placeholder="Ej: 5" style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--bg-principal); color: white;">
+                        </div>
+                        <div>
+                            <label>Número de Porciones (Tazas):</label>
+                            <input type="number" id="receta_porciones" placeholder="Ej: 1" style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: var(--bg-principal); color: white;">
+                        </div>
+                    </div>
+                    
+                    <button onclick="guardarCambiosParametrosReceta()" style="background: #10b981; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: bold;">Guardar Parámetros de Receta</button>
+                    <button onclick="cancelarEdicionParametrosReceta()" style="background: var(--texto-gris); color: var(--bg-principal); border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: bold; margin-left: 0.5rem;">Cancelar</button>
+                </div>
+
+                <div id="contenedor_recetas_dinamicas"></div>
             </section>
+
             <section id="ganancias" class="pantalla">
                 <h2>Márgenes de Ganancia y Precios</h2>
             </section>
@@ -53,7 +155,5 @@
         </main>
         <script src="utilitarios.js"></script>
         <script src="sweetCode.js"></script>
-
-
     </body>
 </html>
