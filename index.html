@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Costos y Presupuestos | Sweet Code</title>
+        <link rel="stylesheet" href="sweetCode.css">
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <img src="sweetCode2.png">
+            </div>
+                <h1>Matemática 1 — UNIDAD 2: Costos y presupuestos</h1>
+        </header>
+        <nav>
+            <button onclick="mostrarSeccion('fijos')">Gastos fijos</button>
+            <button onclick="mostrarSeccion('variables')">Gastos variables</button>
+            <button onclick="mostrarSeccion('directos')">Costos directos e indirectos</button>
+            <button onclick="mostrarSeccion('materia')">Materia prima</button>
+            <button onclick="mostrarSeccion('personal')">Personal</button>
+            <button onclick="mostrarSeccion('recetas')">Recetas y costos</button>
+            <button onclick="mostrarSeccion('ganancias')">Ganancias</button>
+            <button onclick="mostrarSeccion('equilibrio')">Equilibrio financiero</button>
+        </nav>
+        <main>
+            <section id="fijos" class="pantalla activa">
+                <h2>Gastos Fijos Mensuales</h2>
+            </section>
+            
+            <section id="variables" class="pantalla">
+                <h2>Gastos Variables por Producción</h2>
+            </section>
+            
+            <section id="directos" class="pantalla">
+                <h2>Costos Directos e Indirectos</h2>
+            </section>
+            <section id="materia" class="pantalla">
+                <h2>Registro de Materia Prima y Mermas</h2>
+            </section>
+            <section id="personal" class="pantalla">
+                <h2>Costos de Personal y Beneficios IESS</h2>
+            </section>
+            <section id="recetas" class="pantalla">
+                <h2>Recetas y Costeo por Taza de Café</h2>
+            </section>
+            <section id="ganancias" class="pantalla">
+                <h2>Márgenes de Ganancia y Precios</h2>
+            </section>
+            <section id="equilibrio" class="pantalla">
+                <h2>Punto de Equilibrio Financiero</h2>
+            </section>
+        </main>
+        <script src="utilitarios.js"></script>
+        <script src="sweetCode.js"></script>
+
+
+    </body>
+</html>
