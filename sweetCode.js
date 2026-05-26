@@ -512,22 +512,54 @@ function actualizarTablaCostosFijos() {
     tablaBody.parentElement.appendChild(tfoot);
 }
 function calcularCostosFijos() {
-    let arriendo = recuperarFloatSeguro("fijo_arriendo");
-    let barista = recuperarFloatSeguro("fijo_barista");
-    let cajera = recuperarFloatSeguro("fijo_cajera");
-    let admin = recuperarFloatSeguro("fijo_admin");
-    let depreciacion = recuperarFloatSeguro("fijo_depreciacion");
-    let luz = recuperarFloatSeguro("fijo_electricidad");
-    let agua = recuperarFloatSeguro("fijo_agua");
-    let internet = recuperarFloatSeguro("fijo_internet");
-    let contabilidad = recuperarFloatSeguro("fijo_contabilidad");
-    let seguro = recuperarFloatSeguro("fijo_seguro");
-    let licencia = recuperarFloatSeguro("fijo_licencias");
-    let publicidad = recuperarFloatSeguro("fijo_publicidad");
+    let arriendo = recuperarFloatSeguro("fijo_arriendo")|| costosFijos[0].montoMensual;
+    let barista = recuperarFloatSeguro("fijo_barista")|| costosFijos[1].montoMensual;
+    let cajera = recuperarFloatSeguro("fijo_cajera")|| costosFijos[2].montoMensual;
+    let admin = recuperarFloatSeguro("fijo_admin") || costosFijos[3].montoMensual;
+    let depreciacion = recuperarFloatSeguro("fijo_depreciacion") || costosFijos[4].montoMensual;
+    let luz = recuperarFloatSeguro("fijo_electricidad") || costosFijos[5].montoMensual;
+    let agua = recuperarFloatSeguro("fijo_agua")|| costosFijos[6].montoMensual;
+    let internet = recuperarFloatSeguro("fijo_internet")|| costosFijos[7].montoMensual;
+    let contabilidad = recuperarFloatSeguro("fijo_contabilidad")|| costosFijos[8].montoMensual;
+    let seguro = recuperarFloatSeguro("fijo_seguro") || costosFijos[9].montoMensual;
+    let licencia = recuperarFloatSeguro("fijo_licencias")|| costosFijos[10].montoMensual;
+    let publicidad = recuperarFloatSeguro("fijo_publicidad")|| costosFijos[11].montoMensual;
+
+    //actualizamos los costos 
+    costosFijos[0].montoMensual = arriendo;
+    costosFijos[1].montoMensual = barista;
+    costosFijos[2].montoMensual = cajera;
+    costosFijos[3].montoMensual = admin;
+    costosFijos[4].montoMensual = depreciacion;
+    costosFijos[5].montoMensual = luz;
+    costosFijos[6].montoMensual = agua;
+    costosFijos[7].montoMensual = internet;
+    costosFijos[8].montoMensual = contabilidad;
+    costosFijos[9].montoMensual = seguro;
+    costosFijos[10].montoMensual = licencia;
+    costosFijos[11].montoMensual = publicidad;
+
+    let tablaBody = document.getElementById("tabla_costos_fijos");
+
+    if (!tablaBody) return;
+
+    tablaBody.innerHTML = "";
+
+    // ELIMINAMOS EL TFOOT ANTERIOR
+    let tfootViejo = tablaBody.parentElement.querySelector("tfoot");
+
+    if (tfootViejo) {
+        tfootViejo.remove();
+    }
+
 
     let total = arriendo + barista + cajera + admin + depreciacion + luz + agua + internet + contabilidad + seguro + licencia + publicidad;
     document.getElementById("resultado_fijos").style.display = "block";
     mostrarTexto("resultado_fijos", "Total Costos Fijos Mensuales: $" + total.toFixed(2));
+
+    //acttualizamos tabla de costos fijod
+    actualizarTablaCostosFijos();
+    
 
 }
 // ==========================================
